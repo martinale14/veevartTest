@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "npx nodemon src/index.js"
+    "dev": "npx nodemon src/index.js",
+    "genDoc": "npx jsdoc documentation -r -c conf.json -d docs"
   },
   "author": "Martín Alejandro Escobar Espinel",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "prompt": "^1.2.1"
+  }
 }
