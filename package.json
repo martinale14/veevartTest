@@ -1,0 +1,12 @@
+{
+  "name": "test_7",
+  "version": "1.0.0",
+  "description": "Snake game tech interview Veevart",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "npx nodemon src/index.js"
+  },
+  "author": "Martín Alejandro Escobar Espinel",
+  "license": "ISC"
+}
