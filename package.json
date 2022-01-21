@@ -6,11 +6,15 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "npx nodemon src/index.js",
+    "test": "jest",
     "genDoc": "npx jsdoc documentation -r -c conf.json -d docs"
   },
   "author": "Martín Alejandro Escobar Espinel",
   "license": "ISC",
   "dependencies": {
     "prompt": "^1.2.1"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
   }
 }

@@ -4,57 +4,65 @@ const Player = require('./domain/player');
 const Board = require('./domain/board');
 const Die = require('./domain/die');
 
+const RequestService = require('./infraestructure/request_service');
+
 prompt.start();
 
-function main() {
+let playerCount = null;
+let boardDimens = { width: null, height: null };
 
-    prompt.get(['Player Count'], (err, res) => {
-        if (err) return onErr(err);
+async function main() {
 
-        if (!Number.isInteger(parseInt(res['Player Count'])) || parseInt(res['Player Count']) < 1) {
-            console.log('Please only enter positive integer numbers except 0');
-            main();
-        } else {
+    playerCount = await RequestService.requestNumber(['Player Count']);
+    boardDimens.width = await RequestService.requestNumber(['Board Width']);
+    boardDimens.height = await RequestService.requestNumber(['Board height']);
+    initGame();
 
-            const board = new Board(10, 10);
-            const playerCount = parseInt(res['Player Count']);
-            const players = Array(playerCount).fill(new Player());
-            console.log(players);
-            let winner = null;
-            let turn = 0;
+}
 
-            while (winner == null) {
+function initGame() {
+    const board = new Board(boardDimens.height, boardDimens.width);
+    const players = Array(playerCount).fill(0);
+    players.forEach((e, i) => players[i] = new Player());
+    console.log(players);
+    let places = new Array();
+    let turn = 0;
 
-                let player = players[turn];
+    while (places.length != players.length) {
 
-                let dieNumber = Die.roll();
-                console.log(`The die rolls ${dieNumber}`);
+        if (!places.includes(turn)) {
+            const player = players[turn];
 
-                let initialPosition = player.position;
-                player.position = initialPosition + dieNumber;
+            const dieNumber = Die.roll();
+            console.log(`The die rolls ${dieNumber}`);
 
-                if (player.position > board.size) {
-                    let newPosition = (2 * board.size) - player.position
-                    player.position = newPosition < 0 ? 0 : newPosition;
-                }
+            const initialPosition = player.position;
+            player.position = initialPosition + dieNumber;
 
-                console.log(`The player ${turn + 1} ${player.position > initialPosition ? 'advances' : 'goes back'} ${Math.abs(player.position - initialPosition)} positions`);
-                console.log(player.position);
+            if (player.position > board.size) {
+                const newPosition = (2 * board.size) - player.position
+                player.position = newPosition < 0 ? 0 : newPosition;
+            }
 
-                if (player.position == board.size) {
-                    winner = player;
-                    console.log(`The player ${turn + 1} won`);
-                }
+            const step = Math.abs(player.position - initialPosition);
+            console.log(`The player ${turn + 1} ${player.position > initialPosition ? 'advances' : 'goes back'} ${step} position${step > 1 ? 's' : ''}`);
+            console.log(player.position);
 
-                turn = turn == (players.length - 1) ? 0 : (turn + 1);
+            if ((player.position == board.size) || (places.length == (players.length - 1))) {
+                places.push(turn);
             }
 
         }
 
-    });
+        turn = turn == (players.length - 1) ? 0 : (turn + 1);
+    }
 
+    places.forEach((e, i) => {
+        console.log(`${i}: Player ${e + 1}`);
+    });
 }
 
-main();
-
+//main();
+const ObstacleService = require('./infraestructure/obstacles_service');
+ObstacleService.generateObstacles();
 
