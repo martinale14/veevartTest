@@ -23,7 +23,7 @@ async function main() {
 function initGame() {
     const board = new Board(boardDimens.height, boardDimens.width);
     const players = Array(playerCount).fill(0);
-    players.forEach((e, i) => players[i] = new Player());
+    players.forEach((_, i) => players[i] = new Player());
     console.log(players);
     let places = new Array();
     let turn = 0;
@@ -64,5 +64,5 @@ function initGame() {
 
 //main();
 const ObstacleService = require('./infraestructure/obstacles_service');
-ObstacleService.generateObstacles();
+ObstacleService.generateObstacles(100);
 

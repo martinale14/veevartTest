@@ -18,6 +18,10 @@ class Obstacle {
         if (type == 'stair' && to < from) {
             throw console.error('The base of the stair can`t be bigger than the top');
         }
+
+        this._type = type;
+        this._from = from;
+        this._to = to;
     }
 
     get type() { return this._type; }
