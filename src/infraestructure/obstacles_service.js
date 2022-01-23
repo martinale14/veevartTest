@@ -10,12 +10,17 @@ class ObstaclesService {
      */
     static generateObstacles(size) {
         let obstacles = new Array();
+        let used = new Array();
         const ctObstacles = Math.floor(size * (Math.random() * .25)) + .15;
 
         for (let i = 0; i < ctObstacles; i++) {
-            const from = Math.floor(Math.random() * size) + 1;
+
+            let from;
+            let to;
             let type = Math.floor(Math.random() * (3 - 1)) + 1;
-            let to = 0;
+
+            //from = Math.floor(Math.random() * size) + 1;
+            from = getRandomNumberNotIncluded(used, size - 1, 1);
 
             if (type == 1 || from <= 5) {
 
@@ -29,16 +34,25 @@ class ObstaclesService {
 
             }
 
-            console.log('type:' + type);
-            console.log('from: ' + from);
-            console.log('to: ' + to);
+            used.push(from, to);
 
             obstacles.push(new Obstacle(type, from, to));
         }
-
         console.log(obstacles);
 
         return obstacles;
+    }
+
+    getRandomNumberNotIncluded(arr, max, min) {
+        let number;
+
+        do {
+            number = Math.floor(Math.random() * (max - min)) + min;
+            console.log(number);
+            console.log(arr.includes(number));
+        } while (!arr.includes(number));
+
+        return number;
     }
 }
 
