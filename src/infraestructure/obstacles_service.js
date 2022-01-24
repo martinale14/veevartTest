@@ -11,7 +11,8 @@ class ObstaclesService {
     static generateObstacles(size) {
         let obstacles = new Array();
         let used = new Array();
-        const ctObstacles = Math.floor(size * (Math.random() * .25)) + .15;
+        const ctObstacles = parseInt(size * ((Math.random() * .25) + .15));
+        console.log('ctObstacles: ' + ctObstacles);
 
         for (let i = 0; i < ctObstacles; i++) {
 
@@ -19,38 +20,50 @@ class ObstaclesService {
             let to;
             let type = Math.floor(Math.random() * (3 - 1)) + 1;
 
-            //from = Math.floor(Math.random() * size) + 1;
-            from = getRandomNumberNotIncluded(used, size - 1, 1);
+            from = this.getRandomNumberNotIncluded(used, size - 1, 1);
+            used.push(from);
+            to = this.getRandomNumberNotIncluded(used, size - 1, 1);
+            used.push(to);
 
-            if (type == 1 || from <= 5) {
+            if (from < to) {
 
                 type = 'stair';
-                to = Math.floor(Math.random() * (size - from)) + from + 1;
+                to = this.getRandomNumberNotIncluded(used, size + 1, from + 1);
 
-            } else if (type == 2 || from >= (size - 5)) {
+            } else {
 
                 type = 'snake';
-                to = Math.floor(Math.random() * (from - 1)) + 1;
+                to = this.getRandomNumberNotIncluded(used, from, 1);
 
             }
 
-            used.push(from, to);
-
             obstacles.push(new Obstacle(type, from, to));
         }
+
         console.log(obstacles);
 
         return obstacles;
     }
 
-    getRandomNumberNotIncluded(arr, max, min) {
+    /**
+     * 
+     * @param {Array<Number>} arr 
+     * @param {Number} max 
+     * @param {Number} min 
+     * @returns {Number}
+     */
+    static getRandomNumberNotIncluded(arr, max, min) {
+
+        if (max - min == arr.length) {
+            console.log('len ' + arr.length, 'max ' + max, 'min ' + min);
+            throw 'Warning infinite loop';
+        }
+
         let number;
 
         do {
             number = Math.floor(Math.random() * (max - min)) + min;
-            console.log(number);
-            console.log(arr.includes(number));
-        } while (!arr.includes(number));
+        } while (arr.includes(number));
 
         return number;
     }

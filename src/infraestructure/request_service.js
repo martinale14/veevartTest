@@ -12,11 +12,11 @@ class RequestService {
      * @returns {Promise<Number>}
      */
     static requestNumber(request) {
-        return new Promise < Number > ((resolve, _) => {
+        return new Promise((resolve, _) => {
 
             prompt.get(request, (err, res) => {
 
-                if (err) throw console.error(`oops something crash ${err}`);
+                if (err) throw `oops something crash ${err}`;
 
                 if (!Number.isInteger(parseInt(res[request])) || parseInt(res[request]) < 1) {
 
@@ -24,7 +24,9 @@ class RequestService {
                     requestNumber(request);
 
                 } else {
+
                     resolve(parseInt(res[request]));
+
                 }
 
             });

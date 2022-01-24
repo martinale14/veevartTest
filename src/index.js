@@ -44,6 +44,14 @@ function initGame() {
                 player.position = newPosition < 0 ? 0 : newPosition;
             }
 
+            board.obstacles.forEach(e => {
+                if (e.from == player.position) {
+                    console.log(e.from > e.to ? 'Oops you fall on an snake' : 'Good Luck you can go up the stair');
+                    player.position = e.to;
+                    console.log(e);
+                }
+            });
+
             const step = Math.abs(player.position - initialPosition);
             console.log(`The player ${turn + 1} ${player.position > initialPosition ? 'advances' : 'goes back'} ${step} position${step > 1 ? 's' : ''}`);
             console.log(player.position);
@@ -62,7 +70,5 @@ function initGame() {
     });
 }
 
-//main();
-const ObstacleService = require('./infraestructure/obstacles_service');
-ObstacleService.generateObstacles(100);
+main();
 
