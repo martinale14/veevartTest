@@ -10,6 +10,7 @@ class RequestService {
      * 
      * @param {Array<String>} request 
      * @returns {Promise<Number>}
+     * @method requestNumber - This is a static method that allows to request Numbers from the command prompt
      */
     static requestNumber(request) {
         return new Promise((resolve, _) => {

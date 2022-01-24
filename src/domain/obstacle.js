@@ -6,20 +6,34 @@
 
 class Obstacle {
 
+
+    /**
+     * 
+     * @property {String} _type - Controls if the obstacle is a stair or a snake
+     * @property {Number} _from - Controls the start of the obstacle (player initial position)
+     * @property {Number} _to - Controls the end of the obstacle (player final position)
+     * @private
+     */
     _type;
     _from;
     _to;
 
-    constructor(type, from, to) {
-        if (type == 'snake' && from < to) {
-            throw console.error('The tail of the snake can`t be bigger than the head');
+    /**
+     * 
+     * @param {Number} from - Controls the start of the obstacle (player initial position)
+     * @param {Number} to - Controls the end of the obstacle (player final position)
+     */
+    constructor(from, to) {
+        if (from < to) {
+
+            this._type = 'stair';
+
+        } else {
+
+            this._type = 'snake';
+
         }
 
-        if (type == 'stair' && to < from) {
-            throw console.error('The base of the stair can`t be bigger than the top');
-        }
-
-        this._type = type;
         this._from = from;
         this._to = to;
     }

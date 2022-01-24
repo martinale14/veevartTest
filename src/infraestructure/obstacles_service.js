@@ -6,6 +6,7 @@ const Obstacle = require('../domain/obstacle');
 class ObstaclesService {
     /**
      * @param {Number} size - Defines the actual board size
+     * @method generateObstacles - This method is ised for generate the obstacles by defined size
      * @returns {Array<Obstacle>}
      */
     static generateObstacles(size) {
@@ -17,24 +18,13 @@ class ObstaclesService {
 
             let from;
             let to;
-            let type = Math.floor(Math.random() * (3 - 1)) + 1;
 
             from = this.getRandomNumberNotIncluded(used, size - 1, 1);
             used.push(from);
             to = this.getRandomNumberNotIncluded(used, size - 1, 1);
             used.push(to);
 
-            if (from < to) {
-
-                type = 'stair';
-
-            } else {
-
-                type = 'snake';
-
-            }
-
-            obstacles.push(new Obstacle(type, from, to));
+            obstacles.push(new Obstacle(from, to));
         }
 
         return obstacles;
@@ -42,9 +32,10 @@ class ObstaclesService {
 
     /**
      * 
-     * @param {Array<Number>} arr 
-     * @param {Number} max 
-     * @param {Number} min 
+     * @param {Array<Number>} arr - Array that contain the used values
+     * @param {Number} max - Max number for the random generation (Not included)
+     * @param {Number} min - Minimun number for the random generation
+     * @method getRandomNumberNotIncluded -This method provide us a random number that is not included in an array in a defined size
      * @returns {Number}
      */
     static getRandomNumberNotIncluded(arr, max, min) {

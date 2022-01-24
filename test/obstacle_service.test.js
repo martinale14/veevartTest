@@ -6,7 +6,7 @@ test('Validate if returning empty array', () => {
 
 test('Validate if is less than half size', () => {
     for (let i = 0; i < 1000; i++) {
-        expect(ObstacleService.generateObstacles(100).length < 50).toBeTruthy();
+        expect(ObstacleService.generateObstacles(100).length).toBeLessThan(50);
     }
 });
 
