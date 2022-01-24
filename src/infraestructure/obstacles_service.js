@@ -12,7 +12,6 @@ class ObstaclesService {
         let obstacles = new Array();
         let used = new Array();
         const ctObstacles = parseInt(size * ((Math.random() * .25) + .15));
-        console.log('ctObstacles: ' + ctObstacles);
 
         for (let i = 0; i < ctObstacles; i++) {
 
@@ -28,19 +27,15 @@ class ObstaclesService {
             if (from < to) {
 
                 type = 'stair';
-                to = this.getRandomNumberNotIncluded(used, size + 1, from + 1);
 
             } else {
 
                 type = 'snake';
-                to = this.getRandomNumberNotIncluded(used, from, 1);
 
             }
 
             obstacles.push(new Obstacle(type, from, to));
         }
-
-        console.log(obstacles);
 
         return obstacles;
     }
@@ -55,7 +50,6 @@ class ObstaclesService {
     static getRandomNumberNotIncluded(arr, max, min) {
 
         if (max - min == arr.length) {
-            console.log('len ' + arr.length, 'max ' + max, 'min ' + min);
             throw 'Warning infinite loop';
         }
 
