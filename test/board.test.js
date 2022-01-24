@@ -1,6 +1,6 @@
 const Board = require('../src/domain/board');
 
-
+// Validation for the board object
 test('Validation for board properties', () => {
 
     for (let i = 0; i < 100; i++) {

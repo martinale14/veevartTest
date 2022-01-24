@@ -1,5 +1,6 @@
 const ObstacleService = require('../src/infraestructure/obstacles_service');
 
+// Checking if the obstacles are correctly created by type
 test('Check if the type is being generated the right way', () => {
     const obstacles = ObstacleService.generateObstacles(500);
 
