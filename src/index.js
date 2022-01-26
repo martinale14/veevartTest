@@ -58,7 +58,7 @@ function initGame() {
             console.log(`The player ${turn + 1} ${player.position > initialPosition ? 'advances' : 'goes back'} ${step} position${step > 1 ? 's' : ''}`); // Showing to the user the steps he moved and if is in positive or negative sense
             console.log(`The player ${turn + 1} is now on ${player.position}\n`); // Showing to the user his actual position
 
-            if ((player.position == board.size) || (places.length == (players.length - 1))) { // Calculating if the player alredy wins
+            if ((player.position === board.size) || (players.length !== 1 ? (places.length === (players.length - 1)) : false)) { // Calculating if the player alredy wins
                 places.push(turn); // Adding the player to his place when finish the game
             }
 
