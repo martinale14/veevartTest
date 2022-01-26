@@ -22,7 +22,7 @@ class RequestService {
                 if (!Number.isInteger(parseInt(res[request])) || parseInt(res[request]) < 1) {
 
                     console.log('Please only enter positive integer numbers except 0');
-                    requestNumber(request);
+                    this.requestNumber(request);
 
                 } else {
 

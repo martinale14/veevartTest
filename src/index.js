@@ -42,7 +42,7 @@ function initGame() {
             player.position = initialPosition + dieNumber; // Moving our player
 
             if (player.position > board.size) { // Validating if the player exceed the maximun number of the board
-                const newPosition = (2 * board.size) - player.position; // Calculating the ne position if the player goes back for exceep the board last number
+                const newPosition = (2 * board.size) - player.position; // Calculating the ne position if the player goes back for exceed the board last number
                 player.position = newPosition < 0 ? 0 : newPosition; // Changing the player position
             }
 
@@ -68,7 +68,7 @@ function initGame() {
     }
 
     places.forEach((e, i) => { // Loop that let us see all the places
-        console.log(`${i}: Player ${e + 1} ${i == 0 ? '(Winner)' : ''}`); // Printing the player with his place
+        console.log(`${i + 1}: Player ${e + 1} ${i == 0 ? '(Winner)' : ''}`); // Printing the player with his place
     });
 }
 
